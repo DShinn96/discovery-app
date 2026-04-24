@@ -43,7 +43,7 @@ function App() {
             className="flex items-center gap-2 cursor-pointer group bg-transparent border-none p-0"
           >
             <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center font-bold group-hover:bg-blue-500 transition-all shadow-lg shadow-blue-900/20">
-              DS
+              SD
             </div>
             <span className="font-bold tracking-tight text-xl uppercase italic">
               Shinn <span className="text-blue-500">Digital</span>
@@ -281,7 +281,7 @@ function App() {
           <div className="max-w-sm">
             <div className="flex items-center gap-2 mb-6">
               <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center font-bold">
-                DS
+                SD
               </div>
               <span className="font-bold tracking-tight text-sm uppercase italic">
                 Shinn <span className="text-blue-500">Digital</span>
