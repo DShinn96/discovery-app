@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { questions, tiers } from "./data";
-import LeadForm from "./lead-form";
+import { LeadForm } from "./lead-form";
 import "./app.css";
 
 // Updated internal tier mapping for the lowered pricing
