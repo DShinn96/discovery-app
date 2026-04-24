@@ -6,7 +6,7 @@ export const LeadForm = ({ tier, priceRange, score, allAnswers }) => {
 
   return (
     <form 
-      action={`https://formspree.io/f/${formspreeId}`} 
+      action={`https://formspree.io/f/mnjllore`} 
       method="POST" 
       className="space-y-4"
     >
