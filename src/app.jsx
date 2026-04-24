@@ -2,7 +2,7 @@ import { useState } from "react";
 import { questions, tiers } from "./data";
 import { LeadForm } from "./lead-form";
 import "./app.css";
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from "@vercel/analytics/react"
 
 // Updated internal tier mapping for the lowered pricing
 const UPDATED_TIERS = [
