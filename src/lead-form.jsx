@@ -1,77 +1,58 @@
-import { useState } from "react";
+import React from 'react';
 
-export default function LeadForm({ onSubmit, score }) {
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-
-    // Replace YOUR_FORM_ID with your actual Formspree ID
-    const response = await fetch("https://formspree.io/f/mnjllore", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name,
-        email,
-        score: score,
-        _subject: `New Lead: ${name} wants a ${score} point site`, // Customize the subject line
-      }),
-    });
-
-    if (response.ok) {
-      onSubmit();
-    } else {
-      alert("Submission failed. Please check your connection and try again.");
-    }
-    setLoading(false);
-  };
+export const LeadForm = ({ tier, priceRange, score, allAnswers }) => {
+  // Replace this ID with your actual Formspree ID
+  const formspreeId = "your_id_here"; 
 
   return (
-    <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <h2 className="text-3xl font-bold mb-4 text-center">One last thing...</h2>
-      <p className="text-slate-400 mb-8 text-center">
-        Enter your details to reveal your custom package recommendation and
-        pricing estimate.
-      </p>
+    <form 
+      action={`https://formspree.io/f/${formspreeId}`} 
+      method="POST" 
+      className="space-y-4"
+    >
+      <div className="grid grid-cols-1 gap-4">
+        <input 
+          type="text" 
+          name="Client Name" 
+          placeholder="Full Name" 
+          required 
+          className="bg-slate-800 border-slate-700 rounded-lg p-3 outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <input 
+          type="email" 
+          name="_replyto" 
+          placeholder="Email Address" 
+          required 
+          className="bg-slate-800 border-slate-700 rounded-lg p-3 outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
 
-      <form onSubmit={handleSubmit} className="space-y-5">
-        <div>
-          <label className="block text-sm font-medium text-slate-400 mb-1.5">
-            Full Name
-          </label>
-          <input
-            required
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="w-full bg-slate-900 border border-slate-700 rounded-xl p-4 text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all"
-            placeholder="John Doe"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-slate-400 mb-1.5">
-            Email Address
-          </label>
-          <input
-            required
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full bg-slate-900 border border-slate-700 rounded-xl p-4 text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all"
-            placeholder="john@example.com"
-          />
-        </div>
-        <button
-          disabled={loading}
-          type="submit"
-          className="w-full bg-blue-600 hover:bg-blue-500 active:scale-95 text-white font-bold py-4 rounded-xl transition-all disabled:opacity-50 shadow-lg shadow-blue-900/20"
-        >
-          {loading ? "Calculating..." : "See My Recommendation"}
-        </button>
-      </form>
-    </div>
+      {/* HIDDEN FIELDS: This is what Formspree reads but the user doesn't see */}
+      <input type="hidden" name="_subject" value={`New Lead: ${tier} Inquiry`} />
+      <input type="hidden" name="Calculated Tier" value={tier} />
+      <input type="hidden" name="Estimated Quote" value={priceRange} />
+      <input type="hidden" name="Total Algorithm Score" value={score} />
+
+      {/* Mapping all 20 questions into the email data */}
+      {allAnswers.map((answer, index) => (
+        <input 
+          key={index}
+          type="hidden" 
+          name={`Question_${index + 1}`} 
+          value={answer?.label || "No answer provided"} 
+        />
+      ))}
+
+      <button 
+        type="submit" 
+        className="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-blue-900/20"
+      >
+        Send My Project Brief
+      </button>
+      
+      <p className="text-center text-xs text-slate-500 mt-4">
+        By submitting, you agree to receive a follow-up consultation regarding this estimate.
+      </p>
+    </form>
   );
-}
+};
