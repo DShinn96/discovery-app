@@ -57,16 +57,19 @@ const recommendedTier = UPDATED_TIERS.find(
       {/* --- HEADER --- */}
       <header className="w-full py-6 px-8 border-b border-slate-800 bg-slate-950/50 backdrop-blur-md sticky top-0 z-50">
         <div className="max-w-5xl mx-auto flex justify-between items-center">
-          <button
-            onClick={() => setView("quiz")}
-            className="flex items-center gap-2 cursor-pointer group bg-transparent border-none p-0"
-          >
-            {/* UPDATED: Using SVG Icon */}
-            <img src="/shinn-digital-icon.svg" alt="DS" className="w-8 h-8 shadow-lg shadow-blue-900/20 group-hover:scale-105 transition-transform" />
-            <span className="font-bold tracking-tight text-xl uppercase italic">
-              Shinn <span className="text-blue-500">Digital</span>
-            </span>
-          </button>
+{/* --- HEADER LOGO --- */}
+<button
+  onClick={() => setView("quiz")}
+  className="flex items-center gap-2 cursor-pointer group bg-transparent border-none p-0"
+>
+  {/* Styled Code-Based Icon */}
+  <div className="w-9 h-9 bg-blue-600 rounded-lg flex items-center justify-center font-bold text-white shadow-lg shadow-blue-900/20 group-hover:bg-blue-500 transition-all">
+    SD
+  </div>
+  <span className="font-bold tracking-tight text-xl uppercase italic">
+    Shinn <span className="text-blue-500">Digital</span>
+  </span>
+</button>
 
           <nav className="hidden md:flex gap-8 text-sm font-medium text-slate-400">
             <button
@@ -191,16 +194,15 @@ const recommendedTier = UPDATED_TIERS.find(
       </main>
 
       {/* --- FOOTER --- */}
-      <footer className="w-full py-16 px-8 border-t border-slate-900 bg-slate-950">
-        <div className="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-start gap-12">
-          <div className="max-w-sm">
-            <div className="flex items-center gap-2 mb-6">
-              {/* UPDATED: Using SVG Icon */}
-              <img src="/shinn-digital-icon.svg" alt="SD" className="w-8 h-8" />
-              <span className="font-bold tracking-tight text-sm uppercase italic">
-                Shinn <span className="text-blue-500">Digital</span>
-              </span>
-            </div>
+{/* --- FOOTER LOGO --- */}
+<div className="flex items-center gap-2 mb-6">
+  <div className="w-7 h-7 bg-blue-600 rounded flex items-center justify-center text-xs font-bold text-white">
+    SD
+  </div>
+  <span className="font-bold tracking-tight text-sm uppercase italic">
+    Shinn <span className="text-blue-500">Digital</span>
+  </span>
+</div>
             <p className="text-slate-500 text-sm leading-relaxed mb-6">
               Engineering high-performance digital systems for local pros and
               national businesses. Based in Nashville, TN.
