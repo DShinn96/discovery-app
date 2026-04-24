@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <title>Shinn Digital Favicon</title>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="blueGradient">
+            <stop stop-color="#2563EB" offset="0%"></stop> <stop stop-color="#1D4ED8" offset="100%"></stop> </linearGradient>
+    </defs>
+    
+    <rect id="TileBase" fill="url(#blueGradient)" x="0" y="0" width="64" height="64" rx="12" ry="12"></rect>
+    
+    <text id="Shinn-D" font-family="Arial-BoldMT, Arial" font-size="36" font-weight="bold" fill="#FFFFFF" letter-spacing="0.5">
+        <tspan x="21" y="44">D</tspan>
+    </text>
+</svg>
