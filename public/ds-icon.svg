@@ -3,12 +3,14 @@
     <title>Shinn Digital Favicon</title>
     <defs>
         <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="blueGradient">
-            <stop stop-color="#2563EB" offset="0%"></stop> <stop stop-color="#1D4ED8" offset="100%"></stop> </linearGradient>
+            <stop stop-color="#2563EB" offset="0%"></stop>
+            <stop stop-color="#1D4ED8" offset="100%"></stop>
+        </linearGradient>
     </defs>
     
     <rect id="TileBase" fill="url(#blueGradient)" x="0" y="0" width="64" height="64" rx="12" ry="12"></rect>
     
-    <text id="Shinn-D" font-family="Arial-BoldMT, Arial" font-size="36" font-weight="bold" fill="#FFFFFF" letter-spacing="0.5">
-        <tspan x="21" y="44">D</tspan>
+    <text id="Shinn-DS" font-family="Arial-BoldMT, Arial" font-size="36" font-weight="bold" fill="#FFFFFF" letter-spacing="0.5">
+        <tspan x="10" y="44">DS</tspan>
     </text>
 </svg>
