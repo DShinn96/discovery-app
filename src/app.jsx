@@ -5,11 +5,11 @@ import "./app.css";
 
 // Updated internal tier mapping for the lowered pricing
 const UPDATED_TIERS = [
-  { min: 0, max: 20, name: "Tier 1", price: "$80 - $150" },
-  { min: 21, max: 40, name: "Tier 2", price: "$200 - $450" },
-  { min: 41, max: 60, name: "Tier 3", price: "$500 - $900" },
-  { min: 61, max: 85, name: "Tier 4", price: "$1,000 - $2,500" },
-  { min: 86, max: 200, name: "Tier 5", price: "$3,000+" },
+  { min: 0, max: 25, name: "Tier 1", price: "$80 - $150", desc: "Landing Pages & Basic Fixes" },
+  { min: 26, max: 45, name: "Tier 2", price: "$200 - $450", desc: "Small Business Sites & Portfolios" },
+  { min: 46, max: 65, name: "Tier 3", price: "$500 - $900", desc: "CMS, E-commerce & Complex SEO" },
+  { min: 66, max: 90, name: "Tier 4", price: "$1,000 - $2,500", desc: "Custom Web Apps & API Integration" },
+  { min: 91, max: 200, name: "Tier 5", price: "$3,000+", desc: "Full Enterprise Systems & Architecture" },
 ];
 
 function App() {
@@ -19,6 +19,10 @@ function App() {
   const [answers, setAnswers] = useState([]); // Track actual text responses
   const [showForm, setShowForm] = useState(false);
   const [showResult, setShowResult] = useState(false);
+
+const recommendedTier = UPDATED_TIERS.find(
+  (tier) => totalScore >= tier.min && totalScore <= tier.max
+) || UPDATED_TIERS[0]; // Fallback to Tier 1
 
   const handleAnswer = (option) => {
     // 1. Update score
