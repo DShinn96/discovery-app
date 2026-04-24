@@ -56,3 +56,5 @@ export const LeadForm = ({ tier, priceRange, score, allAnswers }) => {
     </form>
   );
 };
+
+export default LeadForm;
