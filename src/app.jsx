@@ -20,10 +20,6 @@ function App() {
   const [showForm, setShowForm] = useState(false);
   const [showResult, setShowResult] = useState(false);
 
-const recommendedTier = UPDATED_TIERS.find(
-  (tier) => totalScore >= tier.min && totalScore <= tier.max
-) || UPDATED_TIERS[0]; // Fallback to Tier 1
-
   const handleAnswer = (option) => {
     // 1. Update score
     setTotalScore((prev) => prev + option.points);
@@ -49,9 +45,9 @@ const recommendedTier = UPDATED_TIERS.find(
   };
 
   // Using the updated local tiers for the new pricing
-  const recommendedTier = UPDATED_TIERS.find(
-    (tier) => totalScore >= tier.min && totalScore <= tier.max,
-  );
+const recommendedTier = UPDATED_TIERS.find(
+  (tier) => totalScore >= tier.min && totalScore <= tier.max
+) || UPDATED_TIERS[0]; // Fallback to Tier 1
 
   const progress = ((currentStep + 1) / questions.length) * 100;
 
