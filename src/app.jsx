@@ -49,7 +49,7 @@ function App() {
     <div className="min-h-screen w-full bg-slate-950 text-white flex flex-col font-sans selection:bg-blue-500/30">
       <Analytics />
       
-      {/* --- HEADER --- */}
+{/* --- HEADER --- */}
       <header className="w-full py-6 px-8 border-b border-slate-800 bg-slate-950/50 backdrop-blur-md sticky top-0 z-50">
         <div className="max-w-5xl mx-auto flex justify-between items-center">
           <button onClick={() => setView("quiz")} className="flex items-center gap-2 cursor-pointer group bg-transparent border-none p-0 text-left">
@@ -64,13 +64,18 @@ function App() {
           <nav className="hidden md:flex gap-8 text-sm font-medium text-slate-400">
             <button onClick={() => setView("portfolio")} className={`hover:text-white transition-colors cursor-pointer bg-transparent border-none ${view === "portfolio" ? "text-white underline underline-offset-8 decoration-blue-500" : ""}`}>Portfolio</button>
             <button onClick={() => setView("services")} className={`hover:text-white transition-colors cursor-pointer bg-transparent border-none ${view === "services" ? "text-white underline underline-offset-8 decoration-blue-500" : ""}`}>Services</button>
-            <div className="flex items-center gap-2 bg-blue-600/10 text-blue-400 px-4 py-2 rounded-full border border-blue-600/20 text-xs font-bold">
+            
+            {/* UPDATED: Converted to Button with resetQuiz functionality */}
+            <button 
+              onClick={resetQuiz}
+              className="flex items-center gap-2 bg-blue-600/10 text-blue-400 px-4 py-2 rounded-full border border-blue-600/20 text-xs font-bold hover:bg-blue-600/20 hover:border-blue-500/40 transition-all cursor-pointer group"
+            >
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
               </span>
               DISCOVERY MODE
-            </div>
+            </button>
           </nav>
         </div>
       </header>
