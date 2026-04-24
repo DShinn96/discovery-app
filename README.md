@@ -1,16 +1,25 @@
-# React + Vite
+# Shinn Digital | Project Discovery App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A high-performance, mobile-first project estimation tool built for local businesses. This application guides potential clients through a 20-question discovery process to provide instant budget tiering and lead generation.
 
-Currently, two official plugins are available:
+## 🚀 Live Demo
+[Insert your Vercel Link Here]
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🛠️ Tech Stack
+- **Frontend:** React 19 + Vite
+- **Styling:** Tailwind CSS v4 (Modern Engine)
+- **Logic:** Custom weighted scoring algorithm for project tiering
+- **Deployment:** Vercel
+- **Form Handling:** Formspree API Integration
 
-## React Compiler
+## 📋 Features
+- **Dynamic Progress Tracking:** Real-time visual feedback as users navigate the discovery quiz.
+- **Glassmorphism UI:** Modern, dark-mode aesthetic with backdrop-blur effects.
+- **State-Based Navigation:** Seamless transitions between Discovery, Services, and Portfolio views without page reloads.
+- **Responsive Design:** Fully optimized for mobile, tablet, and desktop viewing.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🏗️ Getting Started
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1. **Clone the repo:**
+   ```bash
+   git clone [https://github.com/YOUR_USERNAME/discovery-app.git](https://github.com/YOUR_USERNAME/discovery-app.git)
