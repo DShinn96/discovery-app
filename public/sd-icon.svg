@@ -10,7 +10,7 @@
     
     <rect id="TileBase" fill="url(#blueGradient)" x="0" y="0" width="64" height="64" rx="12" ry="12"></rect>
     
-    <text id="Shinn-DS" font-family="Arial-BoldMT, Arial" font-size="36" font-weight="bold" fill="#FFFFFF" letter-spacing="0.5">
-        <tspan x="10" y="44">DS</tspan>
+    <text id="Shinn-SD" font-family="Arial-BoldMT, Arial" font-size="36" font-weight="bold" fill="#FFFFFF" letter-spacing="0.5">
+        <tspan x="8" y="44">SD</tspan>
     </text>
 </svg>
