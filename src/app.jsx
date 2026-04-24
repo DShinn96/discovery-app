@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { questions } from "./data";
-import LeadForm from "./lead-form"; // Ensure this matches your default export in lead-form.jsx
+import LeadForm from "./lead-form"; 
 import { Analytics } from "@vercel/analytics/react";
 import "./app.css";
 
@@ -28,9 +28,7 @@ function App() {
 
   const handleAnswer = (option) => {
     setTotalScore((prev) => prev + option.points);
-    // Correctly tracking the text of the answer for your email
     setAnswers((prev) => [...prev, option.text]);
-    
     if (currentStep < questions.length - 1) {
       setCurrentStep((prev) => prev + 1);
     } else {
@@ -84,7 +82,7 @@ function App() {
             {!showForm && !showResult && (
               <div className="flex flex-col">
                 <div className="w-full bg-slate-800 h-2.5 rounded-full mb-8 overflow-hidden border border-slate-700">
-                  <div className="bg-blue-600 h-full rounded-full transition-all duration-700 ease-out shadow-[0_0_15px_rgba(37,99,235,0.4)]" style={{ width: `${progress}%` }}></div>
+                  <div className="bg-blue-600 h-full rounded-full transition-all duration-700 shadow-[0_0_15px_rgba(37,99,235,0.4)]" style={{ width: `${progress}%` }}></div>
                 </div>
                 <div className="mb-8">
                   <span className="text-blue-500 font-bold uppercase tracking-widest text-[10px] bg-blue-500/10 px-2 py-1 rounded">Question {currentStep + 1} of {questions.length}</span>
@@ -114,29 +112,61 @@ function App() {
           </div>
         )}
 
-        {/* ... Rest of views (Services/Portfolio) stay the same ... */}
         {view === "services" && (
-          <div className="w-full max-w-5xl text-center animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <h2 className="text-4xl font-black mb-12 uppercase italic">My <span className="text-blue-500">Expertise</span></h2>
+          <div className="w-full max-w-5xl animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-black mb-4 uppercase italic">My <span className="text-blue-500">Expertise</span></h2>
+              <p className="text-slate-400 max-w-2xl mx-auto">From high-conversion websites to custom enterprise software, we build digital tools that work as hard as you do.</p>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="bg-slate-900 border border-slate-800 p-8 rounded-3xl">Web Development</div>
-              <div className="bg-slate-900 border border-slate-800 p-8 rounded-3xl">Software Engineering</div>
-              <div className="bg-slate-900 border border-slate-800 p-8 rounded-3xl">Data Architecture</div>
+              {[
+                { title: "Web Development", icon: "🌐", tech: "Vite • React • Tailwind", desc: "Performance-first websites designed to turn visitors into leads." },
+                { title: "Software Engineering", icon: "🚀", tech: "C# • Node.js • .NET Core", desc: "Custom back-end solutions specialized in automating business logic." },
+                { title: "Data Architecture", icon: "💾", tech: "PostgreSQL • SQL Server • T-SQL", desc: "Clean database design to ensure your data is secure and scalable." }
+              ].map((s, i) => (
+                <div key={i} className="bg-slate-900 border border-slate-800 p-8 rounded-3xl hover:border-blue-500/50 transition-all group">
+                  <div className="text-4xl mb-6 group-hover:scale-110 transition-transform inline-block">{s.icon}</div>
+                  <h3 className="text-xl font-bold mb-3">{s.title}</h3>
+                  <p className="text-slate-400 text-sm leading-relaxed mb-6">{s.desc}</p>
+                  <div className="text-[10px] font-bold text-blue-500 uppercase tracking-widest bg-blue-500/5 py-1 px-2 rounded inline-block">{s.tech}</div>
+                </div>
+              ))}
             </div>
           </div>
         )}
 
         {view === "portfolio" && (
-          <div className="w-full max-w-5xl text-center animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <h2 className="text-4xl font-black mb-12 uppercase italic">Project <span className="text-blue-500">Gallery</span></h2>
+          <div className="w-full max-w-5xl animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-black mb-4 uppercase italic">Project <span className="text-blue-500">Gallery</span></h2>
+              <p className="text-slate-400">A look at the functional systems we've shipped recently.</p>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <a href="https://game-day-tracker.vercel.app/" target="_blank" rel="noreferrer" className="bg-slate-900 border border-slate-800 rounded-3xl p-12 hover:border-blue-500 transition-all block">Game Day Tracker</a>
+              <a href="https://game-day-tracker.vercel.app/" target="_blank" rel="noreferrer" className="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden group hover:border-blue-500 transition-all flex flex-col">
+                <div className="h-64 bg-slate-800 flex items-center justify-center relative overflow-hidden">
+                  <div className="absolute inset-0 bg-blue-600/10 group-hover:bg-transparent transition-all"></div>
+                  <span className="text-2xl font-black text-slate-700 uppercase italic group-hover:text-blue-500 transition-all">Game Day Tracker</span>
+                </div>
+                <div className="p-8">
+                  <h4 className="text-xl font-bold text-white mb-2">Game Day Tracker</h4>
+                  <p className="text-slate-400 text-sm mb-4 leading-relaxed">A specialized web app for tracking live sports data and game metrics in real-time. Built for mobile-first performance.</p>
+                  <div className="flex gap-2">
+                    {["Vite", "React", "Vercel"].map(t => (
+                      <span key={t} className="text-[10px] bg-slate-800 text-slate-400 px-2 py-1 rounded uppercase font-bold">{t}</span>
+                    ))}
+                  </div>
+                </div>
+              </a>
+              <div className="bg-slate-900/50 border border-slate-800 border-dashed rounded-3xl flex flex-col items-center justify-center text-slate-600 p-12 text-center">
+                <div className="w-12 h-12 border-2 border-slate-800 border-t-blue-500 rounded-full animate-spin mb-4"></div>
+                <p className="font-bold uppercase tracking-tighter italic">Engineering the next project...</p>
+              </div>
             </div>
           </div>
         )}
       </main>
 
-{/* --- FOOTER --- */}
+      {/* --- FOOTER --- */}
       <footer className="w-full py-16 px-8 border-t border-slate-900 bg-slate-950">
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-start gap-12">
           <div className="max-w-sm text-left">
@@ -145,17 +175,9 @@ function App() {
               <span className="font-bold tracking-tight text-sm uppercase italic text-white">Shinn <span className="text-blue-500">Digital</span></span>
             </div>
             <p className="text-slate-500 text-sm leading-relaxed mb-6">Engineering high-performance digital systems for local pros and national businesses. Based in Nashville, TN.</p>
-            
-            {/* RESTORED: The "Fun Little Tag Line" */}
             <p className="text-slate-400 text-xs italic">
               Not a fan of quizzes? Just shoot me an{" "}
-              <a
-                href="mailto:david@shinndigital.com"
-                className="text-blue-500 hover:underline"
-              >
-                email
-              </a>
-              .
+              <a href="mailto:david@shinndigital.com" className="text-blue-500 hover:underline">email</a>.
             </p>
           </div>
 
@@ -168,7 +190,7 @@ function App() {
             <div className="md:text-right">
               <p className="text-slate-600">&copy; 2026 Shinn Digital. All rights reserved.</p>
               <p className="text-slate-800 text-[10px] mt-1 uppercase font-black">
-                Powered Modern React & Tailwind Architecture
+                Built with Modern React & Tailwind Architecture
               </p>
             </div>
           </div>
