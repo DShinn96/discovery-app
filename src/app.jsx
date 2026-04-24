@@ -127,7 +127,7 @@ function App() {
       </header>
 
       {/* --- MAIN CONTENT --- */}
-      <main className="flex-grow flex items-center justify-center p-6 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-slate-900 via-slate-950 to-slate-950">
+      <main className="grow flex items-center justify-center p-6 bg-[radial-gradient(circle_at_top,var(--tw-gradient-stops))] from-slate-900 via-slate-950 to-slate-950">
         {view === "quiz" && (
           <div className="w-full max-w-xl bg-slate-900/80 border border-slate-800 p-8 rounded-3xl shadow-2xl backdrop-blur-sm animate-in fade-in slide-in-from-bottom-4 duration-500">
             {!showForm && !showResult && (
