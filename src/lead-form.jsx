@@ -1,18 +1,17 @@
 import React from 'react';
 
-const LeadForm = ({ score, tier, price, allAnswers, onSubmit }) => {
-  // REPLACE THIS with your actual Formspree ID from your dashboard
-  const formspreeId = "your_id_here"; 
+const LeadForm = ({ score, tier, price, allAnswers }) => {
+  // Your Formspree ID
+  const formspreeId = "mnjllore"; 
 
   return (
-    <div className="animate-in fade-in zoom-in-95 duration-500">
+    <div className="animate-in fade-in zoom-in-95 duration-500 text-left">
       <h2 className="text-2xl font-bold mb-2 text-white">Final Step</h2>
       <p className="text-slate-400 text-sm mb-6">Enter your details to receive your official brief.</p>
       
       <form 
-        action={`https://formspree.io/f/mnjllore`} 
+        action={`https://formspree.io/f/${formspreeId}`} 
         method="POST" 
-        onSubmit={onSubmit}
         className="flex flex-col gap-4"
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -37,7 +36,7 @@ const LeadForm = ({ score, tier, price, allAnswers, onSubmit }) => {
         <input type="hidden" name="Estimated Quote" value={price} />
         <input type="hidden" name="Algorithm Score" value={score} />
 
-        {/* HIDDEN QUESTION RESPONSES - This fixes the "No answer provided" issue */}
+        {/* HIDDEN QUESTION RESPONSES */}
         {allAnswers && allAnswers.map((answer, index) => (
           <input 
             key={index} 
@@ -46,6 +45,9 @@ const LeadForm = ({ score, tier, price, allAnswers, onSubmit }) => {
             value={answer || "No answer provided"} 
           />
         ))}
+
+        {/* This tells Formspree where to send the user after they submit */}
+        <input type="hidden" name="_next" value="https://discovery-app-your-url.vercel.app/" />
 
         <button 
           type="submit" 
@@ -58,5 +60,4 @@ const LeadForm = ({ score, tier, price, allAnswers, onSubmit }) => {
   );
 };
 
-// This line fixes the Vite [MISSING_EXPORT] error
 export default LeadForm;

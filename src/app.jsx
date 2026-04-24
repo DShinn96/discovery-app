@@ -177,7 +177,7 @@ function App() {
             <p className="text-slate-500 text-sm leading-relaxed mb-6">Engineering high-performance digital systems for local pros and national businesses. Based in Nashville, TN.</p>
             <p className="text-slate-400 text-xs italic">
               Not a fan of quizzes? Just shoot me an{" "}
-              <a href="mailto:david@shinndigital.com" className="text-blue-500 hover:underline">email</a>.
+              <a href="mailto:shinn.digital@yahoo.com" className="text-blue-500 hover:underline">email</a>.
             </p>
           </div>
 
