@@ -305,7 +305,7 @@ function App() {
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-start gap-12">
           <div className="max-w-sm text-left">
             <div className="flex items-center gap-2 mb-6">
-              <div className="w-7 h-7 bg-blue-600 rounded flex items-center justify-center text-xs font-bold text-white">
+              <div className="w-7 h-7 bg-blue-600 rounded flex items-center justify-center text-xs font-bold text-white shadow-lg shadow-blue-900/20">
                 SD
               </div>
               <span className="font-bold tracking-tight text-sm uppercase italic text-white">
@@ -334,31 +334,35 @@ function App() {
                 href="https://www.facebook.com/shinndigital"
                 target="_blank"
                 rel="noreferrer"
-                className="text-slate-400 hover:text-blue-400 transition-colors uppercase font-bold text-xs"
+                className="text-slate-400 hover:text-blue-400 transition-colors uppercase font-bold text-xs tracking-widest"
               >
                 Facebook
               </a>
               <a
-                href="https://www.linkedin.com/in/david-shinn1/"
+                href="https://www.linkedin.com/in/shinndigital"
                 target="_blank"
                 rel="noreferrer"
-                className="text-slate-400 hover:text-blue-400 transition-colors uppercase font-bold text-xs"
+                className="text-slate-400 hover:text-blue-400 transition-colors uppercase font-bold text-xs tracking-widest"
               >
                 LinkedIn
               </a>
               <a
                 href="mailto:shinn.digital@yahoo.com"
-                className="text-slate-400 hover:text-blue-400 transition-colors uppercase font-bold text-xs"
+                className="text-slate-400 hover:text-blue-400 transition-colors uppercase font-bold text-xs tracking-widest"
               >
                 Email
               </a>
             </div>
+
             <div className="md:text-right">
-              <p className="text-slate-600">
-                &copy; 2026 Shinn Digital. All rights reserved.
+              {/* UPDATED: Branding & Handcrafted Signature */}
+              <p className="text-slate-500 font-medium">
+                © 2026 Shinn Digital | Handcrafted in Nashville, TN
               </p>
-              <p className="text-slate-800 text-[10px] mt-1 uppercase font-black">
-                Built with Modern React & Tailwind Architecture
+
+              {/* UPDATED: Custom Build Version */}
+              <p className="text-slate-700 text-[10px] font-mono mt-2 tracking-[0.2em] uppercase font-bold">
+                Build: v2.4.2026-STABLE
               </p>
             </div>
           </div>
