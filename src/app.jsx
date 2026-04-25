@@ -43,6 +43,31 @@ const UPDATED_TIERS = [
   },
 ];
 
+// Reusable SVG Logo Component (Transparent Background)
+const BrandLogo = ({ className }) => (
+  <svg
+    viewBox="0 0 500 500"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className={className}
+  >
+    <path
+      d="M100 150L250 300L100 450"
+      stroke="#2563EB"
+      strokeWidth="80"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M280 150L430 300L280 450"
+      stroke="#CBD5E1"
+      strokeWidth="80"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
 function App() {
   const [currentStep, setCurrentStep] = useState(0);
   const [totalScore, setTotalScore] = useState(0);
@@ -51,10 +76,8 @@ function App() {
   const [showResult, setShowResult] = useState(false);
 
   const recommendedTier =
-    UPDATED_TIERS.find(
-      (tier) => totalScore >= tier.min && totalScore <= tier.max,
-    ) || UPDATED_TIERS[0];
-
+    UPDATED_TIERS.find((t) => totalScore >= t.min && totalScore <= t.max) ||
+    UPDATED_TIERS[0];
   const progress = ((currentStep + 1) / questions.length) * 100;
 
   const handleAnswer = (option) => {
@@ -87,18 +110,7 @@ function App() {
             onClick={resetQuiz}
             className="flex items-center gap-3 cursor-pointer group bg-transparent border-none p-0 text-left"
           >
-            {/* Brand Logo Integration */}
-            <div className="relative w-10 h-10 overflow-hidden rounded-lg shadow-lg shadow-blue-900/20 group-hover:scale-105 transition-all">
-              <img
-                src="/logo.png"
-                alt="Shinn Digital Logo"
-                className="w-full h-full object-cover"
-                onError={(e) => {
-                  e.target.src =
-                    "https://ui-avatars.com/api/?name=DS&background=2563eb&color=fff";
-                }}
-              />
-            </div>
+            <BrandLogo className="w-10 h-10 drop-shadow-[0_0_8px_rgba(37,99,235,0.3)] group-hover:scale-110 transition-transform" />
             <span className="font-bold tracking-tight text-xl uppercase italic text-white">
               Shinn <span className="text-blue-500">Digital</span>
             </span>
@@ -193,16 +205,7 @@ function App() {
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-start gap-12">
           <div className="max-w-sm text-left">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-8 h-8 overflow-hidden rounded shadow-lg shadow-blue-900/20">
-                <img
-                  src="/logo.png"
-                  alt="DS"
-                  className="w-full h-full object-cover"
-                  onError={(e) => {
-                    e.target.style.display = "none";
-                  }}
-                />
-              </div>
+              <BrandLogo className="w-8 h-8 opacity-80" />
               <span className="font-bold tracking-tight text-sm uppercase italic text-white">
                 Shinn <span className="text-blue-500">Digital</span>
               </span>
@@ -264,7 +267,6 @@ function App() {
                 Email
               </a>
             </div>
-
             <div className="md:text-right">
               <p className="text-slate-500 font-medium">
                 © 2026 Shinn Digital | Handcrafted in Nashville, TN
