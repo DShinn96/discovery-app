@@ -329,7 +329,23 @@ function App() {
           </div>
 
           <div className="flex flex-col md:items-end gap-6 text-sm">
-            <div className="flex gap-8">
+            <div className="flex flex-wrap gap-6 md:gap-8 justify-center md:justify-end">
+              <a
+                href="https://x.com/shinndigital"
+                target="_blank"
+                rel="noreferrer"
+                className="text-slate-400 hover:text-blue-400 transition-colors uppercase font-bold text-xs tracking-widest"
+              >
+                X
+              </a>
+              <a
+                href="https://github.com/dshinn96"
+                target="_blank"
+                rel="noreferrer"
+                className="text-slate-400 hover:text-blue-400 transition-colors uppercase font-bold text-xs tracking-widest"
+              >
+                GitHub
+              </a>
               <a
                 href="https://www.facebook.com/shinndigital"
                 target="_blank"
