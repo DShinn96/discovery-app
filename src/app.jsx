@@ -43,7 +43,6 @@ const UPDATED_TIERS = [
   },
 ];
 
-// Reusable SVG Logo Component (Transparent Background)
 const BrandLogo = ({ className }) => (
   <svg
     viewBox="0 0 500 500"
@@ -75,6 +74,7 @@ function App() {
   const [showForm, setShowForm] = useState(false);
   const [showResult, setShowResult] = useState(false);
 
+  // Logic Calculations
   const recommendedTier =
     UPDATED_TIERS.find((t) => totalScore >= t.min && totalScore <= t.max) ||
     UPDATED_TIERS[0];
@@ -110,7 +110,7 @@ function App() {
             onClick={resetQuiz}
             className="flex items-center gap-3 cursor-pointer group bg-transparent border-none p-0 text-left"
           >
-            <BrandLogo className="w-10 h-10 drop-shadow-[0_0_8px_rgba(37,99,235,0.3)] group-hover:scale-110 transition-transform" />
+            <BrandLogo className="w-10 h-10 drop-shadow-[0_0_10px_rgba(37,99,235,0.2)] group-hover:scale-110 transition-transform duration-300" />
             <span className="font-bold tracking-tight text-xl uppercase italic text-white">
               Shinn <span className="text-blue-500">Digital</span>
             </span>
@@ -136,28 +136,33 @@ function App() {
         <div className="w-full max-w-xl bg-slate-900/80 border border-slate-800 p-8 rounded-3xl shadow-2xl backdrop-blur-sm animate-in fade-in slide-in-from-bottom-4 duration-500">
           {!showForm && !showResult && (
             <div className="flex flex-col">
-              <div className="w-full bg-slate-800 h-2.5 rounded-full mb-8 overflow-hidden border border-slate-700">
+              {/* Progress Bar */}
+              <div className="w-full bg-slate-800 h-2 rounded-full mb-8 overflow-hidden border border-slate-700">
                 <div
                   className="bg-blue-600 h-full rounded-full transition-all duration-700 shadow-[0_0_15px_rgba(37,99,235,0.4)]"
                   style={{ width: `${progress}%` }}
                 ></div>
               </div>
+
+              {/* Question Text */}
               <div className="mb-8">
                 <span className="text-blue-500 font-bold uppercase tracking-widest text-[10px] bg-blue-500/10 px-2 py-1 rounded">
-                  Question {currentStep + 1} of {questions.length}
+                  Step {currentStep + 1} of {questions.length}
                 </span>
                 <h1 className="text-2xl font-bold mt-4 leading-tight">
                   {questions[currentStep].text}
                 </h1>
               </div>
+
+              {/* Options Grid */}
               <div className="flex flex-col gap-3">
                 {questions[currentStep].options.map((option, index) => (
                   <button
                     key={index}
                     onClick={() => handleAnswer(option)}
-                    className="w-full text-left p-5 rounded-2xl border border-slate-800 bg-slate-800/40 hover:border-blue-500 hover:bg-slate-800 hover:translate-x-1 transition-all"
+                    className="w-full text-left p-5 rounded-2xl border border-slate-800 bg-slate-800/40 hover:border-blue-500 hover:bg-slate-800 hover:translate-x-1 transition-all group"
                   >
-                    <span className="hover:text-blue-400 transition-colors font-medium">
+                    <span className="group-hover:text-blue-400 transition-colors font-medium">
                       {option.text}
                     </span>
                   </button>
@@ -181,17 +186,20 @@ function App() {
 
           {showResult && (
             <div className="text-center py-6 animate-in zoom-in fade-in duration-700">
-              <h1 className="text-5xl font-black mb-6 tracking-tight italic text-white">
+              <h1 className="text-5xl font-black mb-6 tracking-tight italic text-white underline decoration-blue-500 decoration-8 underline-offset-8">
                 {recommendedTier.name}
               </h1>
               <div className="bg-slate-950/50 rounded-2xl p-6 border border-slate-800 mb-8">
                 <p className="text-4xl font-mono text-white font-bold">
                   {recommendedTier.price}
                 </p>
+                <p className="text-slate-500 text-xs mt-2 uppercase tracking-widest font-bold">
+                  Estimated Investment
+                </p>
               </div>
               <button
                 onClick={resetQuiz}
-                className="text-slate-600 hover:text-white font-bold uppercase tracking-widest text-[10px] bg-transparent border-none cursor-pointer"
+                className="text-slate-600 hover:text-white font-bold uppercase tracking-widest text-[10px] bg-transparent border-none cursor-pointer transition-colors"
               >
                 Restart Discovery
               </button>
@@ -203,6 +211,7 @@ function App() {
       {/* --- FOOTER --- */}
       <footer className="w-full py-16 px-8 border-t border-slate-900 bg-slate-950">
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-start gap-12">
+          {/* Brand Column */}
           <div className="max-w-sm text-left">
             <div className="flex items-center gap-3 mb-6">
               <BrandLogo className="w-8 h-8 opacity-80" />
@@ -226,48 +235,27 @@ function App() {
             </p>
           </div>
 
-          <div className="flex flex-col md:items-end gap-6 text-sm">
-            <div className="flex flex-wrap gap-6 md:gap-8 justify-center md:justify-end">
-              <a
-                href="https://x.com/shinndigital"
-                target="_blank"
-                rel="noreferrer"
-                className="text-slate-400 hover:text-blue-400 transition-colors uppercase font-bold text-xs tracking-widest"
-              >
-                X
-              </a>
-              <a
-                href="https://github.com/dshinn96"
-                target="_blank"
-                rel="noreferrer"
-                className="text-slate-400 hover:text-blue-400 transition-colors uppercase font-bold text-xs tracking-widest"
-              >
-                GitHub
-              </a>
-              <a
-                href="https://www.facebook.com/shinndigital"
-                target="_blank"
-                rel="noreferrer"
-                className="text-slate-400 hover:text-blue-400 transition-colors uppercase font-bold text-xs tracking-widest"
-              >
-                Facebook
-              </a>
-              <a
-                href="https://www.linkedin.com/in/shinndigital"
-                target="_blank"
-                rel="noreferrer"
-                className="text-slate-400 hover:text-blue-400 transition-colors uppercase font-bold text-xs tracking-widest"
-              >
-                LinkedIn
-              </a>
-              <a
-                href="mailto:shinn.digital@yahoo.com"
-                className="text-slate-400 hover:text-blue-400 transition-colors uppercase font-bold text-xs tracking-widest"
-              >
-                Email
-              </a>
+          {/* Links & Build Column */}
+          <div className="flex flex-col md:items-end gap-6 text-sm w-full md:w-auto">
+            <div className="flex flex-wrap gap-6 md:gap-8 justify-start md:justify-end">
+              {["X", "GitHub", "Facebook", "LinkedIn", "Email"].map((link) => (
+                <a
+                  key={link}
+                  href={
+                    link === "Email"
+                      ? "mailto:shinn.digital@yahoo.com"
+                      : `https://${link.toLowerCase()}.com/shinndigital`
+                  }
+                  target={link === "Email" ? "_self" : "_blank"}
+                  rel="noreferrer"
+                  className="text-slate-400 hover:text-blue-400 transition-colors uppercase font-bold text-xs tracking-widest"
+                >
+                  {link}
+                </a>
+              ))}
             </div>
-            <div className="md:text-right">
+
+            <div className="md:text-right border-t border-slate-900 pt-6 md:border-none md:pt-0 w-full md:w-auto">
               <p className="text-slate-500 font-medium">
                 © 2026 Shinn Digital | Handcrafted in Nashville, TN
               </p>
