@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { questions } from "./data";
 import LeadForm from "./lead-form";
 import { Analytics } from "@vercel/analytics/react";
@@ -74,7 +74,10 @@ function App() {
   const [showForm, setShowForm] = useState(false);
   const [showResult, setShowResult] = useState(false);
 
-  // Logic Calculations
+  useEffect(() => {
+    document.title = "Discovery App | Shinn Digital";
+  }, []);
+
   const recommendedTier =
     UPDATED_TIERS.find((t) => totalScore >= t.min && totalScore <= t.max) ||
     UPDATED_TIERS[0];
@@ -106,15 +109,16 @@ function App() {
       {/* --- HEADER --- */}
       <header className="w-full py-6 px-8 border-b border-slate-800 bg-slate-950/50 backdrop-blur-md sticky top-0 z-50">
         <div className="max-w-5xl mx-auto flex justify-between items-center">
-          <button
-            onClick={resetQuiz}
-            className="flex items-center gap-3 cursor-pointer group bg-transparent border-none p-0 text-left"
+          {/* LOGO LINK TO MAIN SITE */}
+          <a
+            href="https://shinndigital.com"
+            className="flex items-center gap-3 cursor-pointer group no-underline"
           >
             <BrandLogo className="w-10 h-10 drop-shadow-[0_0_10px_rgba(37,99,235,0.2)] group-hover:scale-110 transition-transform duration-300" />
             <span className="font-bold tracking-tight text-xl uppercase italic text-white">
               Shinn <span className="text-blue-500">Digital</span>
             </span>
-          </button>
+          </a>
 
           <nav className="flex items-center gap-4">
             <button
@@ -136,15 +140,12 @@ function App() {
         <div className="w-full max-w-xl bg-slate-900/80 border border-slate-800 p-8 rounded-3xl shadow-2xl backdrop-blur-sm animate-in fade-in slide-in-from-bottom-4 duration-500">
           {!showForm && !showResult && (
             <div className="flex flex-col">
-              {/* Progress Bar */}
               <div className="w-full bg-slate-800 h-2 rounded-full mb-8 overflow-hidden border border-slate-700">
                 <div
                   className="bg-blue-600 h-full rounded-full transition-all duration-700 shadow-[0_0_15px_rgba(37,99,235,0.4)]"
                   style={{ width: `${progress}%` }}
                 ></div>
               </div>
-
-              {/* Question Text */}
               <div className="mb-8">
                 <span className="text-blue-500 font-bold uppercase tracking-widest text-[10px] bg-blue-500/10 px-2 py-1 rounded">
                   Step {currentStep + 1} of {questions.length}
@@ -153,8 +154,6 @@ function App() {
                   {questions[currentStep].text}
                 </h1>
               </div>
-
-              {/* Options Grid */}
               <div className="flex flex-col gap-3">
                 {questions[currentStep].options.map((option, index) => (
                   <button
@@ -211,14 +210,17 @@ function App() {
       {/* --- FOOTER --- */}
       <footer className="w-full py-16 px-8 border-t border-slate-900 bg-slate-950">
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-start gap-12">
-          {/* Brand Column */}
           <div className="max-w-sm text-left">
-            <div className="flex items-center gap-3 mb-6">
-              <BrandLogo className="w-8 h-8 opacity-80" />
+            {/* FOOTER LOGO LINK TO MAIN SITE */}
+            <a
+              href="https://shinndigital.com"
+              className="flex items-center gap-3 mb-6 group no-underline"
+            >
+              <BrandLogo className="w-8 h-8 opacity-80 group-hover:opacity-100 transition-opacity" />
               <span className="font-bold tracking-tight text-sm uppercase italic text-white">
                 Shinn <span className="text-blue-500">Digital</span>
               </span>
-            </div>
+            </a>
             <p className="text-slate-500 text-sm leading-relaxed mb-6">
               Engineering high-performance digital systems for local pros and
               national businesses. Based in Nashville, TN.
@@ -235,7 +237,6 @@ function App() {
             </p>
           </div>
 
-          {/* Links & Build Column */}
           <div className="flex flex-col md:items-end gap-6 text-sm w-full md:w-auto">
             <div className="flex flex-wrap gap-6 md:gap-8 justify-start md:justify-end">
               {["X", "GitHub", "Facebook", "LinkedIn", "Email"].map((link) => (
