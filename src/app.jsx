@@ -3,7 +3,7 @@ import { questions } from "./data";
 import LeadForm from "./lead-form";
 import { Analytics } from "@vercel/analytics/react";
 
-// Optimized Performance Injection
+// Optimized Performance Injection: Loads tracking AFTER the UI paints
 const initPerformance = async () => {
   const { injectSpeedInsights } = await import("@vercel/speed-insights");
   injectSpeedInsights();
@@ -47,6 +47,7 @@ const UPDATED_TIERS = [
   },
 ];
 
+// Inline SVG Brand Logo: Zero network request cost
 const BrandLogo = ({ className }) => (
   <svg
     viewBox="0 0 500 500"
