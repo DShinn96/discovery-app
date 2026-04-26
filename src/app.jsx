@@ -2,15 +2,19 @@ import { useState, useEffect } from "react";
 import { questions } from "./data";
 import LeadForm from "./lead-form";
 import { Analytics } from "@vercel/analytics/react";
-import { SpeedInsights } from "@vercel/speed-insights/react";
-import "./app.css";
+
+// Optimized Performance Injection
+const initPerformance = async () => {
+  const { injectSpeedInsights } = await import("@vercel/speed-insights");
+  injectSpeedInsights();
+};
 
 const UPDATED_TIERS = [
   {
     min: 0,
     max: 25,
     name: "Tier 1",
-    price: "$80 - $150",
+    price: "$100 - $175",
     desc: "Landing Pages & Basic Fixes",
   },
   {
@@ -24,7 +28,7 @@ const UPDATED_TIERS = [
     min: 46,
     max: 65,
     name: "Tier 3",
-    price: "$500 - $900",
+    price: "$500 - $950",
     desc: "CMS, E-commerce & Complex SEO",
   },
   {
@@ -76,6 +80,7 @@ function App() {
 
   useEffect(() => {
     document.title = "Discovery App | Shinn Digital";
+    initPerformance();
   }, []);
 
   const recommendedTier =
@@ -104,12 +109,10 @@ function App() {
   return (
     <div className="min-h-screen w-full bg-slate-950 text-white flex flex-col font-sans selection:bg-blue-500/30">
       <Analytics />
-      <SpeedInsights />
 
       {/* --- HEADER --- */}
       <header className="w-full py-6 px-8 border-b border-slate-800 bg-slate-950/50 backdrop-blur-md sticky top-0 z-50">
         <div className="max-w-5xl mx-auto flex justify-between items-center">
-          {/* LOGO LINK TO MAIN SITE */}
           <a
             href="https://shinndigital.com"
             className="flex items-center gap-3 cursor-pointer group no-underline"
@@ -123,7 +126,7 @@ function App() {
           <nav className="flex items-center gap-4">
             <button
               onClick={resetQuiz}
-              className="flex items-center gap-2 bg-blue-600/10 text-blue-400 px-4 py-2 rounded-full border border-blue-600/20 text-xs font-bold hover:bg-blue-600/20 hover:border-blue-500/40 transition-all cursor-pointer group"
+              className="flex items-center gap-2 bg-blue-600/10 text-blue-400 px-4 py-2 rounded-full border border-blue-600/20 text-xs font-bold hover:bg-blue-600/20 transition-all cursor-pointer group"
             >
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
@@ -211,7 +214,6 @@ function App() {
       <footer className="w-full py-16 px-8 border-t border-slate-900 bg-slate-950">
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-start gap-12">
           <div className="max-w-sm text-left">
-            {/* FOOTER LOGO LINK TO MAIN SITE */}
             <a
               href="https://shinndigital.com"
               className="flex items-center gap-3 mb-6 group no-underline"
@@ -225,45 +227,15 @@ function App() {
               Engineering high-performance digital systems for local pros and
               national businesses. Based in Nashville, TN.
             </p>
-            <p className="text-slate-400 text-xs italic">
-              Not a fan of quizzes? Just shoot me an{" "}
-              <a
-                href="mailto:shinn.digital@yahoo.com"
-                className="text-blue-500 hover:underline"
-              >
-                email
-              </a>
-              .
-            </p>
           </div>
 
-          <div className="flex flex-col md:items-end gap-6 text-sm w-full md:w-auto">
-            <div className="flex flex-wrap gap-6 md:gap-8 justify-start md:justify-end">
-              {["X", "GitHub", "Facebook", "LinkedIn", "Email"].map((link) => (
-                <a
-                  key={link}
-                  href={
-                    link === "Email"
-                      ? "mailto:shinn.digital@yahoo.com"
-                      : `https://${link.toLowerCase()}.com/shinndigital`
-                  }
-                  target={link === "Email" ? "_self" : "_blank"}
-                  rel="noreferrer"
-                  className="text-slate-400 hover:text-blue-400 transition-colors uppercase font-bold text-xs tracking-widest"
-                >
-                  {link}
-                </a>
-              ))}
-            </div>
-
-            <div className="md:text-right border-t border-slate-900 pt-6 md:border-none md:pt-0 w-full md:w-auto">
-              <p className="text-slate-500 font-medium">
-                © 2026 Shinn Digital | Handcrafted in Nashville, TN
-              </p>
-              <p className="text-slate-700 text-[10px] font-mono mt-2 tracking-[0.2em] uppercase font-bold">
-                Build: v2.4.2026-STABLE
-              </p>
-            </div>
+          <div className="md:text-right">
+            <p className="text-slate-500 font-medium">
+              © 2026 Shinn Digital | Handcrafted in Nashville, TN
+            </p>
+            <p className="text-slate-700 text-[10px] font-mono mt-2 tracking-[0.2em] uppercase font-bold">
+              Build: v2.4.2026-STABLE
+            </p>
           </div>
         </div>
       </footer>
