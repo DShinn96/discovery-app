@@ -16,15 +16,27 @@ export default defineConfig({
     }),
   ],
   build: {
-    // Vite 8 Requirement: esbuild is now a separate peer dependency
+    // Vite 8 Requirement: esbuild must be installed as a peer dependency
     minify: "esbuild",
     rollupOptions: {
       output: {
-        // Robust Object-based chunking for maximum build stability
-        manualChunks: {
-          "vendor-react": ["react", "react-dom"],
-          "vendor-motion": ["framer-motion"],
-          "vendor-analytics": ["@vercel/analytics", "@vercel/speed-insights"],
+        // Build Fix: Using Function syntax to satisfy strict bundler requirements
+        manualChunks(id) {
+          if (id.includes("node_modules")) {
+            if (id.includes("react") || id.includes("react-dom")) {
+              return "vendor-react";
+            }
+            if (id.includes("framer-motion")) {
+              return "vendor-motion";
+            }
+            if (
+              id.includes("@vercel/analytics") ||
+              id.includes("@vercel/speed-insights")
+            ) {
+              return "vendor-analytics";
+            }
+            return "vendor-base";
+          }
         },
       },
     },
