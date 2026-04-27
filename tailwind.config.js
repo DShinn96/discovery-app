@@ -2,7 +2,28 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      animation: {
+        scan: "scan 3s linear infinite",
+      },
+      keyframes: {
+        scan: {
+          "0%": { top: "0%", opacity: "0" },
+          "5%": { opacity: "1" },
+          "95%": { opacity: "1" },
+          "100%": { top: "100%", opacity: "0" },
+        },
+      },
+      // Optimizing for mobile GPU rendering
+      willChange: {
+        contents: "contents",
+        transform: "transform",
+      },
+    },
+  },
+  future: {
+    // CRITICAL FOR MOBILE: Prevents hover states from sticking on touch
+    hoverOnlyWhenSupported: true,
   },
   plugins: [],
 };
