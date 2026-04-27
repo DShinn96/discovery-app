@@ -87,6 +87,7 @@ function App() {
   const [showResult, setShowResult] = useState(false);
 
   useEffect(() => {
+    // AGGRESSIVE SEO: Direct intent in document title
     document.title = "Get a Custom Website Quote | Shinn Digital";
     initPerformance();
   }, []);
@@ -139,7 +140,7 @@ function App() {
 
           <button
             onClick={resetQuiz}
-            aria-label="Restart Discovery Sequence"
+            aria-label="Restart Quote Process"
             className="flex items-center gap-2 bg-blue-600/10 text-blue-400 px-4 py-2 rounded-full border border-blue-600/20 text-[10px] font-black hover:bg-blue-600/20 cursor-pointer transition-all uppercase tracking-widest active:scale-95"
           >
             <span className="relative flex h-2 w-2" aria-hidden="true">
@@ -152,7 +153,8 @@ function App() {
       </header>
 
       {/* --- MAIN DISCOVERY ENGINE --- */}
-      <main className="grow flex items-center justify-center p-6 bg-[radial-gradient(circle_at_top,var(--tw-gradient-stops))] from-slate-900 via-slate-950 to-slate-950 relative">
+      {/* BUILD FIX: Updated radial-gradient syntax to modern center-top standards */}
+      <main className="grow flex items-center justify-center p-6 bg-[radial-gradient(circle_at_center_top,var(--tw-gradient-stops))] from-slate-900 via-slate-950 to-slate-950 relative">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none" />
 
         <div className="w-full max-w-2xl relative z-10">
@@ -160,6 +162,7 @@ function App() {
             {!showForm && !showResult ? (
               <motion.div
                 key="quiz"
+                // PERFORMANCE FIX: Skip entry animation for Step 0 to dramatically improve LCP
                 initial={
                   currentStep === 0 ? { opacity: 1 } : { opacity: 0, y: 20 }
                 }

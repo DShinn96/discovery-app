@@ -5,7 +5,6 @@ import compression from "vite-plugin-compression";
 export default defineConfig({
   plugins: [
     react(),
-    // Generates .gz and .br files for faster transfer
     compression({
       algorithm: "brotliCompress",
       ext: ".br",
@@ -16,7 +15,8 @@ export default defineConfig({
     }),
   ],
   build: {
-    // Slashing the payload size by splitting vendor code
+    // Reverting to esbuild (default) to avoid 'terser' dependency issues
+    minify: "esbuild",
     rollupOptions: {
       output: {
         manualChunks(id) {
@@ -28,15 +28,7 @@ export default defineConfig({
         },
       },
     },
-    // Minimizer settings to squeeze every byte
-    chunkSizeWarningLimit: 600,
+    chunkSizeWarningLimit: 1000,
     cssCodeSplit: true,
-    minify: "terser",
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true,
-      },
-    },
   },
 });
