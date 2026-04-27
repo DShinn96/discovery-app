@@ -5,6 +5,7 @@ import compression from "vite-plugin-compression";
 export default defineConfig({
   plugins: [
     react(),
+    // Performance: High-density compression for mobile LCP scores
     compression({
       algorithm: "brotliCompress",
       ext: ".br",
@@ -15,16 +16,15 @@ export default defineConfig({
     }),
   ],
   build: {
-    // Reverting to esbuild (default) to avoid 'terser' dependency issues
+    // Vite 8 Requirement: esbuild is now a separate peer dependency
     minify: "esbuild",
     rollupOptions: {
       output: {
-        manualChunks(id) {
-          if (id.includes("node_modules")) {
-            if (id.includes("framer-motion")) return "vendor-motion";
-            if (id.includes("react")) return "vendor-react";
-            return "vendor-libs";
-          }
+        // Robust Object-based chunking for maximum build stability
+        manualChunks: {
+          "vendor-react": ["react", "react-dom"],
+          "vendor-motion": ["framer-motion"],
+          "vendor-analytics": ["@vercel/analytics", "@vercel/speed-insights"],
         },
       },
     },

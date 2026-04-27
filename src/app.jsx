@@ -154,7 +154,7 @@ function App() {
 
       {/* --- MAIN DISCOVERY ENGINE --- */}
       {/* BUILD FIX: Updated radial-gradient syntax to modern center-top standards */}
-      <main className="grow flex items-center justify-center p-6 bg-[radial-gradient(circle_at_center_top,var(--tw-gradient-stops))] from-slate-900 via-slate-950 to-slate-950 relative">
+      <main className="grow flex items-center justify-center p-6 bg-[radial-gradient(ellipse_at_center_top,_var(--tw-gradient-stops))] from-slate-900 via-slate-950 to-slate-950 relative">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none" />
 
         <div className="w-full max-w-2xl relative z-10">
