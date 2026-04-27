@@ -1,25 +1,30 @@
-# Shinn Digital | Project Discovery App
+# SD Shinn Digital | Secure Discovery Terminal
 
-A high-performance, mobile-first project estimation tool built for local businesses. This application guides potential clients through a 20-question discovery process to provide instant budget tiering and lead generation.
+A high-performance, mobile-first project estimation and lead-generation terminal. Engineered for precision, this application processes client project intel through a 20-point discovery sequence to generate instant budget tiering and strategic roadmaps.
 
-## 🚀 Live Demo
+## 🚀 Live Terminal
+
 [Insert your Vercel Link Here]
 
-## 🛠️ Tech Stack
-- **Frontend:** React 19 + Vite
-- **Styling:** Tailwind CSS v4 (Modern Engine)
+## 🛠️ Tactical Stack
+
+- **Frontend Framework:** React 19 + Vite
+- **Styling Engine:** Tailwind CSS v4
+- **Motion & Interaction:** Framer Motion (Staggered UI sequences)
 - **Logic:** Custom weighted scoring algorithm for project tiering
-- **Deployment:** Vercel
-- **Form Handling:** Formspree API Integration
+- **Deployment & Analytics:** Vercel / Vercel Speed Insights
+- **Data Transmission:** Formspree API (AES-256 Encrypted Simulation)
 
-## 📋 Features
-- **Dynamic Progress Tracking:** Real-time visual feedback as users navigate the discovery quiz.
-- **Glassmorphism UI:** Modern, dark-mode aesthetic with backdrop-blur effects.
-- **State-Based Navigation:** Seamless transitions between Discovery, Services, and Portfolio views without page reloads.
-- **Responsive Design:** Fully optimized for mobile, tablet, and desktop viewing.
+## 📋 Terminal Capabilities
 
-## 🏗️ Getting Started
+- **Holographic UI:** Deep slate dark-mode aesthetic with interactive glassmorphism (`.glass-panel`) and ambient blue glows.
+- **Dynamic Intel Processing:** Real-time visual tracking and custom scanner animations as users navigate the sequence.
+- **State-Based Navigation:** Seamless, zero-reload transitions utilizing `AnimatePresence` for smooth mounting/unmounting of views.
+- **Military-Grade Uniformity:** Strict adherence to the SD Shinn Digital brand protocol and component architecture.
 
-1. **Clone the repo:**
+## 🏗️ Deployment Protocol
+
+1. **Clone the repository:**
    ```bash
    git clone [https://github.com/YOUR_USERNAME/discovery-app.git](https://github.com/YOUR_USERNAME/discovery-app.git)
+   ```

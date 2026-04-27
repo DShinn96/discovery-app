@@ -1,22 +1,26 @@
-/* Custom scrollbar for that dark mode look */
+/* =========================================
+   SD DISCOVERY TERMINAL | GLOBAL STYLES
+   ========================================= */
+
+/* --- Terminal Scrollbar --- */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0f172a;
+  background: #020617; /* Slate 950 matching our base */
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #334155;
-  border-radius: 10px;
+  background: #1e293b; /* Slate 800 */
+  border-radius: 8px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #475569;
+  background: #3b82f6; /* Blue 500 tactical highlight */
 }
 
-/* Animations for question transitions */
+/* --- Fallback UI Animations --- */
 @keyframes slideIn {
   from {
     opacity: 0;
@@ -32,15 +36,45 @@
   animation: slideIn 0.4s ease-out forwards;
 }
 
-/* Glass effect for the main container */
+/* --- Holographic Glassmorphism --- */
 .glass-panel {
-  background: rgba(30, 41, 59, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(2, 6, 23, 0.65); /* Deep slate base */
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(59, 130, 246, 0.15); /* Faint ambient blue border */
+  box-shadow:
+    0 10px 40px -10px rgba(0, 0, 0, 0.7),
+    inset 0 0 20px rgba(59, 130, 246, 0.05);
 }
 
-/* Subtle pulse for the progress bar to make it feel "alive" */
+/* --- Terminal Component Glows --- */
 .progress-glow {
-  box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+  box-shadow:
+    0 0 15px rgba(59, 130, 246, 0.6),
+    0 0 5px rgba(255, 255, 255, 0.4);
+}
+
+/* --- Tactical Scanner Line --- */
+@keyframes scan {
+  0% {
+    top: 0%;
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  95% {
+    opacity: 1;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+.animate-scan {
+  position: absolute;
+  width: 100%;
+  animation: scan 3s linear infinite;
+  pointer-events: none;
 }
