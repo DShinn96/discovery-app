@@ -1,3 +1,4 @@
+import { fileURLToPath, URL } from "node:url";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import compression from "vite-plugin-compression";
@@ -15,6 +16,12 @@ export default defineConfig({
       ext: ".gz",
     }),
   ],
+  resolve: {
+    alias: {
+      // 2026 Standard: Maps @ to the src directory for absolute imports
+      "@": fileURLToPath(new URL("./src", import.meta.url)),
+    },
+  },
   build: {
     // Vite 8 Requirement: esbuild must be installed as a peer dependency
     minify: "esbuild",

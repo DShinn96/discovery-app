@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 
-const LeadForm = ({ score, tier, price, allAnswers, onSubmit }) => {
+const LeadForm = ({ score, tier, price, allAnswers, questions, onSubmit }) => {
   const formspreeId = "mnjllore";
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -35,7 +35,6 @@ const LeadForm = ({ score, tier, price, allAnswers, onSubmit }) => {
 
   return (
     <div className="text-left relative w-full">
-      {/* --- Terminal Header --- */}
       <div className="mb-10">
         <div className="flex items-center gap-2 mb-2">
           <div className="h-[2px] w-8 bg-blue-500" aria-hidden="true" />
@@ -51,123 +50,77 @@ const LeadForm = ({ score, tier, price, allAnswers, onSubmit }) => {
         </p>
       </div>
 
-      <form
-        onSubmit={handleSubmit}
-        className="flex flex-col gap-6"
-        aria-label="Project Discovery Contact Form"
-      >
+      <form onSubmit={handleSubmit} className="flex flex-col gap-6">
         <div className="grid grid-cols-1 gap-5">
           <input
             type="hidden"
-            name="_next"
-            value="https://discoveryoursite.com"
+            name="_subject"
+            value={`New Discovery: ${tier} Project`}
           />
 
-          {/* Name Field */}
           <div className="group relative">
             <input
               type="text"
-              name="Client Name"
+              name="Client_Name"
               placeholder="FULL NAME"
-              aria-label="Your Full Name"
               required
               className="w-full bg-slate-950/50 border border-white/20 p-5 rounded-2xl text-white font-mono text-sm focus:border-blue-500 outline-none transition-all placeholder:text-slate-400 uppercase tracking-widest"
             />
-            <div className="absolute inset-y-0 right-4 flex items-center pointer-events-none opacity-20 group-focus-within:opacity-100 transition-opacity">
-              <span
-                className="text-blue-500 text-[10px] font-mono"
-                aria-hidden="true"
-              >
-                [READY]
-              </span>
-            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {/* Strict Email Field */}
             <input
               type="email"
-              name="_replyto"
+              name="Email"
               placeholder="EMAIL ADDRESS"
-              aria-label="Email Address"
               required
               className="w-full bg-slate-950/50 border border-white/20 p-5 rounded-2xl text-white font-mono text-sm focus:border-blue-500 outline-none transition-all placeholder:text-slate-400 uppercase tracking-widest"
             />
-
-            {/* Strict Number Field */}
             <input
               type="tel"
-              name="Phone Number"
+              name="Phone"
               placeholder="PHONE NUMBER"
-              aria-label="Phone Number"
               pattern="[0-9]{10,15}"
-              title="Please enter a valid phone number (digits only)"
               required
               className="w-full bg-slate-950/50 border border-white/20 p-5 rounded-2xl text-white font-mono text-sm focus:border-blue-500 outline-none transition-all placeholder:text-slate-400 uppercase tracking-widest"
             />
           </div>
 
-          {/* Optional Intel Field */}
           <div className="group relative">
             <textarea
-              name="Additional Intel"
-              placeholder="ADDITIONAL INTEL (OPTIONAL) // SPECIFIC REQUIREMENTS, TIMELINES, OR INTEGRATIONS..."
-              aria-label="Additional Project Details"
+              name="Additional_Intel"
+              placeholder="ADDITIONAL INTEL (OPTIONAL) // DESCRIBE YOUR VISION OR SPECIFIC REQUIREMENTS..."
               className="w-full min-h-[120px] bg-slate-950/50 border border-white/20 p-5 rounded-2xl text-white font-mono text-sm focus:border-blue-500 outline-none transition-all placeholder:text-slate-400 uppercase tracking-widest resize-y"
             ></textarea>
-            <div className="absolute top-5 right-4 flex items-start pointer-events-none opacity-20 group-focus-within:opacity-100 transition-opacity">
-              <span
-                className="text-blue-500 text-[10px] font-mono"
-                aria-hidden="true"
-              >
-                [OPTIONAL]
-              </span>
-            </div>
           </div>
         </div>
 
-        {/* --- HIDDEN LOGIC DATA --- */}
-        <input type="hidden" name="Calculated Tier" value={tier} />
-        <input type="hidden" name="Estimated Quote" value={price} />
-        <input type="hidden" name="Algorithm Score" value={score} />
-
-        {/* --- HIDDEN QUESTION RESPONSES --- */}
-        {allAnswers &&
-          allAnswers.map((answer, index) => (
+        {questions &&
+          questions.map((q, index) => (
             <input
-              key={index}
+              key={q.id}
               type="hidden"
-              name={`Project_Intel_0${index + 1}`}
-              value={answer || "No answer provided"}
+              name={`Q${q.id}: ${q.text}`}
+              value={allAnswers[index] || "Not Provided"}
             />
           ))}
 
-        {/* --- Submit Action --- */}
+        <input type="hidden" name="System_Tier" value={tier} />
+        <input type="hidden" name="System_Quote" value={price} />
+        <input type="hidden" name="System_Score" value={score} />
+
         <div className="relative mt-4">
           <motion.button
             type="submit"
             disabled={isSubmitting}
-            aria-label={
-              isSubmitting
-                ? "Transmitting form data"
-                : "Submit project intel for strategy brief"
-            }
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             className={`w-full bg-blue-600 hover:bg-blue-500 text-white font-black py-6 rounded-2xl transition-all shadow-[0_0_25px_rgba(37,99,235,0.3)] uppercase tracking-[0.3em] text-xs flex items-center justify-center gap-3 cursor-pointer ${
               isSubmitting ? "opacity-50 cursor-not-allowed" : ""
             }`}
           >
-            {isSubmitting ? (
-              <span className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
-                Transmitting...
-              </span>
-            ) : (
-              "Secure Strategy Brief"
-            )}
+            {isSubmitting ? "Transmitting..." : "Secure Strategy Brief"}
           </motion.button>
-
           <p className="text-[9px] text-center text-slate-600 font-mono mt-6 uppercase tracking-[0.2em]">
             AES-256 Encrypted Connection // Shinn Digital Discovery Protocol
           </p>
