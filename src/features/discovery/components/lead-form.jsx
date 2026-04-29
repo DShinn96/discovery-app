@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 
 const LeadForm = ({ score, tier, price, allAnswers, questions, onSubmit }) => {
-  const formspreeId = "mnjllore";
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -12,8 +11,12 @@ const LeadForm = ({ score, tier, price, allAnswers, questions, onSubmit }) => {
     const form = e.target;
     const data = new FormData(form);
 
+    // INJECT WEB3FORMS ACCESS KEY
+    // Using the environment variable defined in your root .env file
+    data.append("access_key", import.meta.env.VITE_WEB3FORMS_KEY);
+
     try {
-      const response = await fetch(`https://formspree.io/f/${formspreeId}`, {
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         body: data,
         headers: {
@@ -21,10 +24,13 @@ const LeadForm = ({ score, tier, price, allAnswers, questions, onSubmit }) => {
         },
       });
 
-      if (response.ok) {
+      const result = await response.json();
+
+      if (result.success) {
         onSubmit();
       } else {
-        alert("Transmission Error: Uplink failed. Please try again.");
+        console.error("Web3Forms Error:", result.message);
+        alert("Transmission Error: Uplink failed. Please verify credentials.");
         setIsSubmitting(false);
       }
     } catch (error) {
@@ -35,6 +41,7 @@ const LeadForm = ({ score, tier, price, allAnswers, questions, onSubmit }) => {
 
   return (
     <div className="text-left relative w-full">
+      {/* --- Terminal Header --- */}
       <div className="mb-10">
         <div className="flex items-center gap-2 mb-2">
           <div className="h-[2px] w-8 bg-blue-500" aria-hidden="true" />
@@ -52,10 +59,16 @@ const LeadForm = ({ score, tier, price, allAnswers, questions, onSubmit }) => {
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-6">
         <div className="grid grid-cols-1 gap-5">
+          {/* Web3Forms Configuration */}
           <input
             type="hidden"
-            name="_subject"
+            name="subject"
             value={`New Discovery: ${tier} Project`}
+          />
+          <input
+            type="hidden"
+            name="from_name"
+            value="Shinn Digital Terminal"
           />
 
           <div className="group relative">
@@ -95,6 +108,7 @@ const LeadForm = ({ score, tier, price, allAnswers, questions, onSubmit }) => {
           </div>
         </div>
 
+        {/* Dynamic Intel Capture */}
         {questions &&
           questions.map((q, index) => (
             <input
