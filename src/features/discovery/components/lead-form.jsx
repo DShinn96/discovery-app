@@ -4,6 +4,25 @@ import { motion } from "framer-motion";
 const LeadForm = ({ score, tier, price, allAnswers, questions, onSubmit }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Input States for Masking
+  const [clientName, setClientName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+
+  // Logic: Strip any digits (0-9) from the Name field
+  const handleNameChange = (e) => {
+    const value = e.target.value;
+    const sanitizedValue = value.replace(/[0-9]/g, "");
+    setClientName(sanitizedValue);
+  };
+
+  // Logic: Strip everything EXCEPT digits from the Phone field
+  const handlePhoneChange = (e) => {
+    const value = e.target.value;
+    const sanitizedValue = value.replace(/\D/g, "");
+    setPhone(sanitizedValue);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -12,7 +31,6 @@ const LeadForm = ({ score, tier, price, allAnswers, questions, onSubmit }) => {
     const data = new FormData(form);
 
     // INJECT WEB3FORMS ACCESS KEY
-    // Using the environment variable defined in your root .env file
     data.append("access_key", import.meta.env.VITE_WEB3FORMS_KEY);
 
     try {
@@ -59,7 +77,6 @@ const LeadForm = ({ score, tier, price, allAnswers, questions, onSubmit }) => {
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-6">
         <div className="grid grid-cols-1 gap-5">
-          {/* Web3Forms Configuration */}
           <input
             type="hidden"
             name="subject"
@@ -76,6 +93,8 @@ const LeadForm = ({ score, tier, price, allAnswers, questions, onSubmit }) => {
               type="text"
               name="Client_Name"
               placeholder="FULL NAME"
+              value={clientName}
+              onChange={handleNameChange}
               required
               className="w-full bg-slate-950/50 border border-white/20 p-5 rounded-2xl text-white font-mono text-sm focus:border-blue-500 outline-none transition-all placeholder:text-slate-400 uppercase tracking-widest"
             />
@@ -86,6 +105,8 @@ const LeadForm = ({ score, tier, price, allAnswers, questions, onSubmit }) => {
               type="email"
               name="Email"
               placeholder="EMAIL ADDRESS"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
               className="w-full bg-slate-950/50 border border-white/20 p-5 rounded-2xl text-white font-mono text-sm focus:border-blue-500 outline-none transition-all placeholder:text-slate-400 uppercase tracking-widest"
             />
@@ -93,7 +114,8 @@ const LeadForm = ({ score, tier, price, allAnswers, questions, onSubmit }) => {
               type="tel"
               name="Phone"
               placeholder="PHONE NUMBER"
-              pattern="[0-9]{10,15}"
+              value={phone}
+              onChange={handlePhoneChange}
               required
               className="w-full bg-slate-950/50 border border-white/20 p-5 rounded-2xl text-white font-mono text-sm focus:border-blue-500 outline-none transition-all placeholder:text-slate-400 uppercase tracking-widest"
             />
