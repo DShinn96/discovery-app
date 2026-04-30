@@ -27,17 +27,35 @@ const LeadForm = ({ score, tier, price, allAnswers, questions, onSubmit }) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const form = e.target;
-    const formData = new FormData(form);
+    // TACTICAL RECON: Building a clean JSON payload to match the successful console test
+    const payload = {
+      access_key: import.meta.env.VITE_WEB3FORMS_KEY,
+      subject: `New Discovery: ${tier} Project`,
+      from_name: "Shinn Digital Terminal",
+      name: clientName,
+      email: email,
+      phone: phone,
+      additional_intel: e.target.Additional_Intel.value,
+      system_tier: tier,
+      system_quote: price,
+      system_score: score,
+    };
 
-    // INJECT ACCESS KEY
-    formData.append("access_key", import.meta.env.VITE_WEB3FORMS_KEY);
+    // Simplify quiz mapping to bypass security filters (Short keys: Q1, Q2, etc.)
+    if (questions) {
+      questions.forEach((q, index) => {
+        payload[`Q${q.id}`] = allAnswers[index] || "Not Provided";
+      });
+    }
 
     try {
-      // TACTICAL RESET: Standard FormData submission to bypass 400 errors
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        body: formData,
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(payload),
       });
 
       const result = await response.json();
@@ -45,7 +63,7 @@ const LeadForm = ({ score, tier, price, allAnswers, questions, onSubmit }) => {
       if (result.success) {
         onSubmit();
       } else {
-        alert(`Uplink Rejected: ${result.message}`);
+        alert(`Transmission Error: ${result.message}`);
         setIsSubmitting(false);
       }
     } catch (error) {
@@ -57,6 +75,7 @@ const LeadForm = ({ score, tier, price, allAnswers, questions, onSubmit }) => {
 
   return (
     <div className="text-left relative w-full">
+      {/* --- Terminal Header --- */}
       <div className="mb-10">
         <div className="flex items-center gap-2 mb-2">
           <div className="h-[2px] w-8 bg-blue-500" aria-hidden="true" />
@@ -74,17 +93,6 @@ const LeadForm = ({ score, tier, price, allAnswers, questions, onSubmit }) => {
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-6">
         <div className="grid grid-cols-1 gap-5">
-          <input
-            type="hidden"
-            name="subject"
-            value={`New Discovery: ${tier} Project`}
-          />
-          <input
-            type="hidden"
-            name="from_name"
-            value="Shinn Digital Terminal"
-          />
-
           <div className="group relative">
             <input
               type="text"
@@ -126,21 +134,6 @@ const LeadForm = ({ score, tier, price, allAnswers, questions, onSubmit }) => {
             ></textarea>
           </div>
         </div>
-
-        {/* Dynamic Intel Capture */}
-        {questions &&
-          questions.map((q, index) => (
-            <input
-              key={q.id}
-              type="hidden"
-              name={`Q${q.id}: ${q.text}`}
-              value={allAnswers[index] || "Not Provided"}
-            />
-          ))}
-
-        <input type="hidden" name="System_Tier" value={tier} />
-        <input type="hidden" name="System_Quote" value={price} />
-        <input type="hidden" name="System_Score" value={score} />
 
         <div className="relative mt-4">
           <motion.button
