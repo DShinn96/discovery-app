@@ -34,23 +34,21 @@ const LeadForm = ({ score, tier, price, allAnswers, questions, onSubmit }) => {
     data.append("access_key", import.meta.env.VITE_WEB3FORMS_KEY);
 
     try {
+      // TACTICAL CHANGE: We remove the 'Accept' header to prevent security flags
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         body: data,
-        headers: {
-          Accept: "application/json",
-        },
       });
 
       const result = await response.json();
 
-      // TACTICAL DEBUG: This will show the real error in your browser console (F12)
+      // DEBUG: Keep this for F12 console inspection
       console.log("Web3Forms Raw Result:", result);
 
       if (result.success) {
         onSubmit();
       } else {
-        // This will now show the SPECIFIC error message from Web3Forms
+        // Detailed Alert: This will tell us if it's a domain, key, or verification issue
         alert(`Transmission Error: ${result.message}`);
         setIsSubmitting(false);
       }
@@ -80,6 +78,14 @@ const LeadForm = ({ score, tier, price, allAnswers, questions, onSubmit }) => {
       </div>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+        {/* Anti-Spam Honeypot (Hidden from humans) */}
+        <input
+          type="checkbox"
+          name="botcheck"
+          className="hidden"
+          style={{ display: "none" }}
+        />
+
         <div className="grid grid-cols-1 gap-5">
           <input
             type="hidden"
