@@ -34,21 +34,22 @@ const LeadForm = ({ score, tier, price, allAnswers, questions, onSubmit }) => {
     data.append("access_key", import.meta.env.VITE_WEB3FORMS_KEY);
 
     try {
-      // TACTICAL CHANGE: We remove the 'Accept' header to prevent security flags
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        body: data,
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(Object.fromEntries(data)), // TACTICAL UPGRADE: Clean JSON payload
       });
 
       const result = await response.json();
-
-      // DEBUG: Keep this for F12 console inspection
       console.log("Web3Forms Raw Result:", result);
 
       if (result.success) {
         onSubmit();
       } else {
-        // Detailed Alert: This will tell us if it's a domain, key, or verification issue
+        // This will now show the SPECIFIC error message from Web3Forms
         alert(`Transmission Error: ${result.message}`);
         setIsSubmitting(false);
       }
@@ -61,7 +62,6 @@ const LeadForm = ({ score, tier, price, allAnswers, questions, onSubmit }) => {
 
   return (
     <div className="text-left relative w-full">
-      {/* --- Terminal Header --- */}
       <div className="mb-10">
         <div className="flex items-center gap-2 mb-2">
           <div className="h-[2px] w-8 bg-blue-500" aria-hidden="true" />
@@ -78,7 +78,7 @@ const LeadForm = ({ score, tier, price, allAnswers, questions, onSubmit }) => {
       </div>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-        {/* Anti-Spam Honeypot (Hidden from humans) */}
+        {/* Anti-Spam Honeypot */}
         <input
           type="checkbox"
           name="botcheck"
@@ -134,13 +134,12 @@ const LeadForm = ({ score, tier, price, allAnswers, questions, onSubmit }) => {
           <div className="group relative">
             <textarea
               name="Additional_Intel"
-              placeholder="ADDITIONAL INTEL (OPTIONAL) // DESCRIBE YOUR VISION OR SPECIFIC REQUIREMENTS..."
+              placeholder="ADDITIONAL INTEL (OPTIONAL)..."
               className="w-full min-h-[120px] bg-slate-950/50 border border-white/20 p-5 rounded-2xl text-white font-mono text-sm focus:border-blue-500 outline-none transition-all placeholder:text-slate-400 uppercase tracking-widest resize-y"
             ></textarea>
           </div>
         </div>
 
-        {/* Dynamic Intel Capture */}
         {questions &&
           questions.map((q, index) => (
             <input
