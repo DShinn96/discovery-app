@@ -44,14 +44,18 @@ const LeadForm = ({ score, tier, price, allAnswers, questions, onSubmit }) => {
 
       const result = await response.json();
 
+      // TACTICAL DEBUG: This will show the real error in your browser console (F12)
+      console.log("Web3Forms Raw Result:", result);
+
       if (result.success) {
         onSubmit();
       } else {
-        console.error("Web3Forms Error:", result.message);
-        alert("Transmission Error: Uplink failed. Please verify credentials.");
+        // This will now show the SPECIFIC error message from Web3Forms
+        alert(`Transmission Error: ${result.message}`);
         setIsSubmitting(false);
       }
     } catch (error) {
+      console.error("Fetch System Error:", error);
       alert("System Error: Check network connection and retry.");
       setIsSubmitting(false);
     }
