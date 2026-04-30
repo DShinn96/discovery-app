@@ -9,14 +9,14 @@ const LeadForm = ({ score, tier, price, allAnswers, questions, onSubmit }) => {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
 
-  // Logic: Strip any digits (0-9) from the Name field
+  // Masking: Strip digits from Name
   const handleNameChange = (e) => {
     const value = e.target.value;
     const sanitizedValue = value.replace(/[0-9]/g, "");
     setClientName(sanitizedValue);
   };
 
-  // Logic: Strip everything EXCEPT digits from the Phone field
+  // Masking: Strip non-digits from Phone
   const handlePhoneChange = (e) => {
     const value = e.target.value;
     const sanitizedValue = value.replace(/\D/g, "");
@@ -28,36 +28,28 @@ const LeadForm = ({ score, tier, price, allAnswers, questions, onSubmit }) => {
     setIsSubmitting(true);
 
     const form = e.target;
-    const data = new FormData(form);
+    const formData = new FormData(form);
 
-    // INJECT WEB3FORMS ACCESS KEY
-    data.append("access_key", import.meta.env.VITE_WEB3FORMS_KEY);
+    // INJECT ACCESS KEY
+    formData.append("access_key", import.meta.env.VITE_WEB3FORMS_KEY);
 
     try {
+      // TACTICAL RESET: Standard FormData submission to bypass 400 errors
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        // TACTICAL UPGRADE: Converting FormData to clean JSON to bypass security flags
-        body: JSON.stringify(Object.fromEntries(data)),
+        body: formData,
       });
 
       const result = await response.json();
 
-      // DEBUG: Final verification for console inspection
-      console.log("Web3Forms Raw Result:", result);
-
       if (result.success) {
         onSubmit();
       } else {
-        // This will now show the SPECIFIC reason for the security block
-        alert(`Transmission Error: ${result.message}`);
+        alert(`Uplink Rejected: ${result.message}`);
         setIsSubmitting(false);
       }
     } catch (error) {
-      console.error("Fetch System Error:", error);
+      console.error("Transmission Failure:", error);
       alert("System Error: Check network connection and retry.");
       setIsSubmitting(false);
     }
@@ -65,7 +57,6 @@ const LeadForm = ({ score, tier, price, allAnswers, questions, onSubmit }) => {
 
   return (
     <div className="text-left relative w-full">
-      {/* --- Terminal Header --- */}
       <div className="mb-10">
         <div className="flex items-center gap-2 mb-2">
           <div className="h-[2px] w-8 bg-blue-500" aria-hidden="true" />
@@ -82,14 +73,6 @@ const LeadForm = ({ score, tier, price, allAnswers, questions, onSubmit }) => {
       </div>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-        {/* Anti-Spam Honeypot (Hidden from humans) */}
-        <input
-          type="checkbox"
-          name="botcheck"
-          className="hidden"
-          style={{ display: "none" }}
-        />
-
         <div className="grid grid-cols-1 gap-5">
           <input
             type="hidden"
@@ -138,7 +121,7 @@ const LeadForm = ({ score, tier, price, allAnswers, questions, onSubmit }) => {
           <div className="group relative">
             <textarea
               name="Additional_Intel"
-              placeholder="ADDITIONAL INTEL (OPTIONAL) // DESCRIBE YOUR VISION OR SPECIFIC REQUIREMENTS..."
+              placeholder="ADDITIONAL INTEL (OPTIONAL)..."
               className="w-full min-h-[120px] bg-slate-950/50 border border-white/20 p-5 rounded-2xl text-white font-mono text-sm focus:border-blue-500 outline-none transition-all placeholder:text-slate-400 uppercase tracking-widest resize-y"
             ></textarea>
           </div>
