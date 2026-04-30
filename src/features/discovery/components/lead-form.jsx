@@ -40,16 +40,19 @@ const LeadForm = ({ score, tier, price, allAnswers, questions, onSubmit }) => {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
-        body: JSON.stringify(Object.fromEntries(data)), // TACTICAL UPGRADE: Clean JSON payload
+        // TACTICAL UPGRADE: Converting FormData to clean JSON to bypass security flags
+        body: JSON.stringify(Object.fromEntries(data)),
       });
 
       const result = await response.json();
+
+      // DEBUG: Final verification for console inspection
       console.log("Web3Forms Raw Result:", result);
 
       if (result.success) {
         onSubmit();
       } else {
-        // This will now show the SPECIFIC error message from Web3Forms
+        // This will now show the SPECIFIC reason for the security block
         alert(`Transmission Error: ${result.message}`);
         setIsSubmitting(false);
       }
@@ -62,6 +65,7 @@ const LeadForm = ({ score, tier, price, allAnswers, questions, onSubmit }) => {
 
   return (
     <div className="text-left relative w-full">
+      {/* --- Terminal Header --- */}
       <div className="mb-10">
         <div className="flex items-center gap-2 mb-2">
           <div className="h-[2px] w-8 bg-blue-500" aria-hidden="true" />
@@ -78,7 +82,7 @@ const LeadForm = ({ score, tier, price, allAnswers, questions, onSubmit }) => {
       </div>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-        {/* Anti-Spam Honeypot */}
+        {/* Anti-Spam Honeypot (Hidden from humans) */}
         <input
           type="checkbox"
           name="botcheck"
@@ -134,12 +138,13 @@ const LeadForm = ({ score, tier, price, allAnswers, questions, onSubmit }) => {
           <div className="group relative">
             <textarea
               name="Additional_Intel"
-              placeholder="ADDITIONAL INTEL (OPTIONAL)..."
+              placeholder="ADDITIONAL INTEL (OPTIONAL) // DESCRIBE YOUR VISION OR SPECIFIC REQUIREMENTS..."
               className="w-full min-h-[120px] bg-slate-950/50 border border-white/20 p-5 rounded-2xl text-white font-mono text-sm focus:border-blue-500 outline-none transition-all placeholder:text-slate-400 uppercase tracking-widest resize-y"
             ></textarea>
           </div>
         </div>
 
+        {/* Dynamic Intel Capture */}
         {questions &&
           questions.map((q, index) => (
             <input
