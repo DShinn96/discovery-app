@@ -24,3 +24,12 @@ dist-ssr
 *.sw?
 .env
 .env.local
+# Vercel
+.vercel
+
+# Vite/Node temp files
+.eslintcache
+*.tsbuildinfo
+
+# Coverage folders for testing
+coverage/
